@@ -1,7 +1,7 @@
 import { admin } from "googleapis/build/src/apis/admin";
 import pool from "../config/db";
 import bcrypt from "bcrypt";
-import { Session } from "../types/session.types";
+import { AccessTokenResponse, Session } from "../types/session.types";
 import { QueryResult } from "pg";
 import { signJWT, verifyJWT } from "../utils/jwt.utils";
 import log from "../utils/logger";
@@ -9,6 +9,7 @@ import { findAdminByID } from "../models/admin.model";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import { Admin } from "../types/admin.types";
+import { convertToSeconds } from "../utils/timeConverter";
 
 dotenv.config();
 
@@ -154,7 +155,13 @@ export async function reIssueAccessToken({
   refreshToken,
 }: {
   refreshToken: string;
-}): Promise<string | null> {
+}): Promise<AccessTokenResponse | null> {
+  const accessTokenTTL: string | undefined = process.env.ACCESS_TOKEN_TTL;
+
+  if (!accessTokenTTL) {
+    throw new Error("Access token TTL not found.");
+  }
+
   //verify if refresh token is valid
   const verifyResult = verifyJWT(refreshToken);
 
@@ -186,8 +193,6 @@ export async function reIssueAccessToken({
     adminId
   );
 
-  console.log("Admin: ", admin);
-
   if (admin === null) {
     log.info(`Admin with ID of ${adminId} not found.`);
     return null;
@@ -197,15 +202,20 @@ export async function reIssueAccessToken({
   console.log("Expires in: ", process.env.ACCESS_TOKEN_TTL);
   const accessToken = signJWT(
     { ...admin, session: session.session_id },
-    { expiresIn: process.env.ACCESS_TOKEN_TTL } as jwt.SignOptions //15 minutes
+    { expiresIn: accessTokenTTL } as jwt.SignOptions //15 minutes
   );
-
-  console.log("Access token: ", accessToken);
 
   if (!accessToken) {
     log.error("Error creating new access token");
     return null;
   }
 
-  return accessToken;
+  const expiresAtMs = convertToSeconds(accessTokenTTL);
+
+  if (!expiresAtMs) {
+    log.error("Error converting expiration to seconds");
+    return null;
+  }
+
+  return { token: accessToken, expiresIn: expiresAtMs };
 }

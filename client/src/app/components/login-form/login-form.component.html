@@ -1,0 +1,54 @@
+<div class="form-container border">
+  <!-- <p>{{ loginForm.status }}</p>
+  <p>{{ isSubmitted }}</p> -->
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col">
+    @if (serverError) {
+    <div class="server-error-container">
+      <p class="text-red-500">{{ serverError }}</p>
+    </div>
+    }
+
+    <input
+      
+      autocomplete="off"
+      type="email"
+      id="email"
+      placeholder="Email"
+      formControlName="email"
+      required
+    />
+
+    @if (isSubmitted && email && email.invalid && (email.dirty ||
+    email.touched)) {
+    <div class="error-container">
+      @if (email.hasError('required')) {
+      <p class="text-red-500">Email is required.</p>
+      } @if (email.hasError('email')) {
+      <p>Not a valid email.</p>
+      }
+    </div>
+    }
+
+    <input
+      autocomplete="off"
+      class="border"
+      type="password"
+      id="pasword"
+      placeholder="Password"
+      formControlName="password"
+      required
+    />
+
+    @if (isSubmitted && password && password.invalid && (password.dirty ||
+    password.touched)) {
+    <div class="error-container">
+      @if (password.hasError('required')) {
+      <p class="text-red-500">Password is required.</p>
+      }
+    </div>
+    }
+
+    <button type="submit">Log in</button>
+  </form>
+</div>

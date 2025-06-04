@@ -14,6 +14,20 @@ export class ApiService {
     url: string,
     body: TRequest
   ): Observable<TResponse> {
-    return this.httpClient.post<TResponse>(`${this.baseUrl}${url}`, body);
+    return this.httpClient.post<TResponse>(`${this.baseUrl}${url}`, body, {
+      withCredentials: true,
+    });
+  }
+
+  delete<TResponse>(url: string): Observable<TResponse> {
+    return this.httpClient.delete<TResponse>(`${this.baseUrl}${url}`, {
+      withCredentials: true,
+    });
+  }
+
+  get<TResponse>(url: string): Observable<TResponse> {
+    return this.httpClient.get<TResponse>(`${this.baseUrl}${url}`, {
+      withCredentials: true,
+    });
   }
 }

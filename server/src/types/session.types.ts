@@ -5,3 +5,13 @@ export interface Session {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface AccessTokenResponse {
+  token: string;
+  expiresIn: number;
+}
+
+export interface LogoutTokenResponse {
+  accessToken: null;
+  refreshToken: null;
+}
