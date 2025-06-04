@@ -1,8 +1,18 @@
 <!-- MOBILE NAVBAR -->
 <div
   [@openClose]="menuStateInput()"
-  class="navbar-container flex flex-col fixed top-0 left-0 border h-screen w-screen z-20 bg-[#fafafa] py-28 px-5 lg:hidden"
+  class="navbar-container flex flex-col fixed top-0 left-0 border h-screen w-screen z-20 bg-[#fafafa] py-20 px-5 lg:hidden"
 >
+  <div
+    class="logo-container w-24 md:w-36 lg:w-1/3 flex justify-center items-center mb-20"
+  >
+    <img
+      class="w-full"
+      src="/images/code-geeks-logo.webp"
+      alt="code-geeks-logo"
+    />
+  </div>
+
   <div
     (click)="toggleMenuState()"
     class="icon-container flex justify-end px-4 absolute top-5 right-5 hover:cursor-pointer z-20"
@@ -22,7 +32,7 @@
   </div>
 
   <div class="nav-links-container h-full">
-    <ul class="nav-links text-lg flex flex-col gap-7 font-light text-gray-500">
+    <ul class="nav-links text-md flex flex-col gap-7 font-light text-gray-500">
       <li
         routerLinkActive=" bg-[#ff6900] text-[#fafafa] rounded-xl py-1 px-2 opacity-75"
         class="flex gap-3 items-center"
@@ -59,7 +69,9 @@
             d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V18c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-1.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05.02.01.03.03.04.04 1.14.83 1.93 1.94 1.93 3.41V18c0 .35-.07.69-.18 1H22c.55 0 1-.45 1-1v-1.5c0-2.33-4.67-3.5-7-3.5z"
           ></path>
         </svg>
-        <a href="" routerLinkActive="border-b-2 border-[#ff6900]">Members</a>
+        <a routerLink="/members" routerLinkActive="border-b-2 border-[#ff6900]"
+          >Members</a
+        >
       </li>
     </ul>
   </div>
@@ -115,6 +127,14 @@
 <div
   class="hidden lg:flex navbar-container flex-col fixed top-0 left-0 h-screen z-20 bg-[#fafafa] w-1/4 px-5 py-14 border"
 >
+  <div class="logo-container w-32 flex justify-center items-center mb-20">
+    <img
+      class="w-full"
+      src="/images/code-geeks-logo.webp"
+      alt="code-geeks-logo"
+    />
+  </div>
+
   <div class="nav-links-container h-full">
     <ul
       class="nav-links text-md w-full flex flex-col gap-7 font-light text-gray-500"
@@ -155,7 +175,9 @@
             d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V18c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-1.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05.02.01.03.03.04.04 1.14.83 1.93 1.94 1.93 3.41V18c0 .35-.07.69-.18 1H22c.55 0 1-.45 1-1v-1.5c0-2.33-4.67-3.5-7-3.5z"
           ></path>
         </svg>
-        <a href="" routerLinkActive="border-b-2 border-[#ff6900]">Members</a>
+        <a routerLink="/members" routerLinkActive="border-b-2 border-[#ff6900]"
+          >Members</a
+        >
       </li>
     </ul>
   </div>
