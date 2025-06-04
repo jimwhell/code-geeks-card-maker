@@ -8,6 +8,7 @@ const deserializeUser = async (
   res: Response,
   next: NextFunction
 ) => {
+  log.info(req.headers);
   const authorizationHeader: string | undefined = req.headers.authorization;
   if (!authorizationHeader) {
     log.info("No authorization header found");
@@ -36,35 +37,40 @@ const deserializeUser = async (
     return;
   }
 
-  //if access token is expired, verify refreshToken then create a new one.
-  if (expired && refreshToken && typeof refreshToken === "string") {
-    const newAccessToken = await reIssueAccessToken({ refreshToken });
-
-    //a null result means that the current decoded data from the refresh token
-    //holds a session that is invalid
-
-    if (newAccessToken === null) {
-      res.status(401).send("Session revoked. Authentication required.");
-      return;
-    }
-
-    //set new access token to header
-    res.setHeader("x-access-token", newAccessToken);
-
-    //verify new access token
-    const result = verifyJWT(newAccessToken);
-
-    if (!result) {
-      res.status(401).send("Invalid access token");
-      return;
-    }
-
-    //if token is valid:
-    //include admin details to res.locals
-    res.locals.admin = result.decoded;
-    next();
+  if (expired) {
+    res.status(401).send("Unauthorized access.");
     return;
   }
+
+  //if access token is expired, verify refreshToken then create a new one.
+  // if (expired && refreshToken && typeof refreshToken === "string") {
+  //   const newAccessToken = await reIssueAccessToken({ refreshToken });
+
+  //   //a null result means that the current decoded data from the refresh token
+  //   //holds a session that is invalid
+
+  //   if (newAccessToken === null) {
+  //     res.status(401).send("Session revoked. Authentication required.");
+  //     return;
+  //   }
+
+  //   //set new access token to header
+  //   res.setHeader("x-access-token", newAccessToken);
+
+  //   //verify new access token
+  //   const result = verifyJWT(newAccessToken);
+
+  //   if (!result) {
+  //     res.status(401).send("Invalid access token");
+  //     return;
+  //   }
+
+  //   //if token is valid:
+  //   //include admin details to res.locals
+  //   res.locals.admin = result.decoded;
+  //   next();
+  //   return;
+  // }
 
   //extract session id from access token
   const sessionId: string = decoded!.session;
