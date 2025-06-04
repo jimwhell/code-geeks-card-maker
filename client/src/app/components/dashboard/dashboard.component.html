@@ -1,5 +1,54 @@
-<div class="navbar border-red-500">
-  <app-navbar></app-navbar>
-</div>
+<div class="dashboard-container flex relative">
+  <!-- NAVBAR TOGGLER -->
+  @if (menuState === 'closed') {
+  <div
+    class="icon-container fixed top-5 left-5 lg:hidden"
+    (click)="toggleMenuState()"
+  >
+    <svg
+      class="w-10 h-10"
+      xmlns="http://www.w3.org/2000/svg"
+      x="0px"
+      y="0px"
+      viewBox="0,0,256,256"
+    >
+      <g
+        fill="#ff6900"
+        fill-rule="nonzero"
+        stroke="none"
+        stroke-width="1"
+        stroke-linecap="butt"
+        stroke-linejoin="miter"
+        stroke-miterlimit="10"
+        stroke-dasharray=""
+        stroke-dashoffset="0"
+        font-family="none"
+        font-weight="none"
+        font-size="none"
+        text-anchor="none"
+        style="mix-blend-mode: normal"
+      >
+        <g transform="scale(8.53333,8.53333)">
+          <path
+            d="M3,7c-0.36064,-0.0051 -0.69608,0.18438 -0.87789,0.49587c-0.18181,0.3115 -0.18181,0.69676 0,1.00825c0.18181,0.3115 0.51725,0.50097 0.87789,0.49587h24c0.36064,0.0051 0.69608,-0.18438 0.87789,-0.49587c0.18181,-0.3115 0.18181,-0.69676 0,-1.00825c-0.18181,-0.3115 -0.51725,-0.50097 -0.87789,-0.49587zM3,14c-0.36064,-0.0051 -0.69608,0.18438 -0.87789,0.49587c-0.18181,0.3115 -0.18181,0.69676 0,1.00825c0.18181,0.3115 0.51725,0.50097 0.87789,0.49587h24c0.36064,0.0051 0.69608,-0.18438 0.87789,-0.49587c0.18181,-0.3115 0.18181,-0.69676 0,-1.00825c-0.18181,-0.3115 -0.51725,-0.50097 -0.87789,-0.49587zM3,21c-0.36064,-0.0051 -0.69608,0.18438 -0.87789,0.49587c-0.18181,0.3115 -0.18181,0.69676 0,1.00825c0.18181,0.3115 0.51725,0.50097 0.87789,0.49587h24c0.36064,0.0051 0.69608,-0.18438 0.87789,-0.49587c0.18181,-0.3115 0.18181,-0.69676 0,-1.00825c-0.18181,-0.3115 -0.51725,-0.50097 -0.87789,-0.49587z"
+          ></path>
+        </g>
+      </g>
+    </svg>
+  </div>
+  }
+  <!-- NAVBAR TOGGLER -->
 
-<p>dashboard works!</p>
+  <!-- NAVBAR -->
+  <app-navbar
+    [menuStateInput]="menuState"
+    (emitToggle)="toggleMenuStateFromChild($event)"
+  ></app-navbar>
+  <!-- NAVBAR -->
+
+  <!-- BODY -->
+  <div class="body-container border border-red-500">
+    <router-outlet></router-outlet>
+  </div>
+  <!-- BODY -->
+</div>
