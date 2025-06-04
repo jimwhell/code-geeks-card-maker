@@ -27,7 +27,7 @@ const refreshTokenTTL = process.env.REFRESH_TOKEN_TTL;
 
 export async function createAdminSession(
   req: Request<{}, {}, loginAdminInput["body"]>,
-  res: Response<AccessTokenResponse>,
+  res: Response<AccessTokenResponse | string>,
   next: NextFunction
 ) {
   //validate input credentials
@@ -35,7 +35,8 @@ export async function createAdminSession(
     const admin = await validatePassword(req.body);
 
     if (!admin) {
-      throw new Error("Admin ID not found");
+      res.status(401).send("Invalid email or password.");
+      return;
     }
 
     //create a session
