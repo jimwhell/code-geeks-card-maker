@@ -11,13 +11,16 @@ import { off } from "process";
 import { totalmem } from "os";
 
 export async function getAllMembersHandler(
-  req: Request<{}, {}, {}, MembersQuery>,
+  req: Request,
   res: Response<PaginatedMemberResponse>,
   next: NextFunction
 ) {
   try {
+    console.log("Page: ", req.query.page);
+    console.log("Limit: ", req.query.limit);
+
     const page = Number(req.query.page) || 1;
-    const limit = Number(req.query.limit) || 20;
+    const limit = Number(req.query.limit) || 10;
 
     const offset: number = (page - 1) * limit;
 
