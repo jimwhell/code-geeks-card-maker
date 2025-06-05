@@ -9,6 +9,8 @@ export interface Member {
   hau_email: string;
   program: string;
   card_id: string;
+  has_card: boolean;
+  membership_code: string;
 }
 
 //data returned by the getAllMembers function in the members model
@@ -27,6 +29,6 @@ export interface PaginatedMemberResponse extends MembersQueryResult {
 
 //get all members query parameters
 export interface MembersQuery {
-  page: number;
-  limit: number;
+  page: string;
+  limit: string;
 }

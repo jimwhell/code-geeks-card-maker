@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -25,9 +26,13 @@ export class ApiService {
     });
   }
 
-  get<TResponse>(url: string): Observable<TResponse> {
+  get<TResponse>(
+    url: string,
+    options?: { params?: HttpParams }
+  ): Observable<TResponse> {
     return this.httpClient.get<TResponse>(`${this.baseUrl}${url}`, {
       withCredentials: true,
+      ...options,
     });
   }
 }

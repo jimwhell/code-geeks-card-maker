@@ -1,8 +1,10 @@
-<div class="dashboard-container flex relative">
+<div
+  class="dashboard-container flex flex-col lg:flex-row relative min-h-screen"
+>
   <!-- NAVBAR TOGGLER -->
   @if (menuState === 'closed') {
   <div
-    class="icon-container fixed top-5 left-5 lg:hidden"
+    class="icon-container fixed top-5 left-5 lg:hidden z-20"
     (click)="toggleMenuState()"
   >
     <svg
@@ -41,13 +43,14 @@
 
   <!-- NAVBAR -->
   <app-navbar
+    class="lg:w-1/4"
     [menuStateInput]="menuState"
     (emitToggle)="toggleMenuStateFromChild($event)"
   ></app-navbar>
   <!-- NAVBAR -->
 
   <!-- BODY -->
-  <div class="body-container border border-red-500">
+  <div class="body-container lg:w-3/4 mt-20 lg:mt-0 p-5 lg:p-5">
     <router-outlet></router-outlet>
   </div>
   <!-- BODY -->
