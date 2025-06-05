@@ -8,7 +8,6 @@ const deserializeUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  log.info(req.headers);
   const authorizationHeader: string | undefined = req.headers.authorization;
   if (!authorizationHeader) {
     log.info("No authorization header found");
