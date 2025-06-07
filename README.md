@@ -2,6 +2,7 @@ An ongoing personal project for managing and generating member cards for a schoo
 
 ## Technologies used:
 Angular
+TypeScript
 ExpressJS
 PostgreSQL
 Tailwind CSS
